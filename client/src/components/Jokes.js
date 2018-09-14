@@ -23,7 +23,8 @@ class Jokes extends Component {
 
       axios.get('http://localhost:3300/api/jokes', options)
             .then(res => {
-              const jokes = res.data.filter((joke, pos, self) => self.findIndex(t => t.id === joke.id) === pos);
+              let jokes = res.data.filter((joke, pos, self) => self.findIndex(t => t.id === joke.id) === pos);
+              jokes = jokes.map(joke =>  Object.assign({}, joke, {show: false}) );
               this.setState({ isLoggedIn: true,
                                           username: localStorage.getItem('user'),
                                           token,
@@ -39,6 +40,7 @@ class Jokes extends Component {
     return this.state.jokes.map(joke => <JokeCard
                                           key={joke.id}
                                           {...joke}
+                                          flip={() => this.flipCard(joke.id)}
                                         />)
   }
 
@@ -46,6 +48,20 @@ class Jokes extends Component {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     this.setState({ isLoggedIn: false, username: null, token: null, jokes: [] })
+  }
+
+  flipCard = id => {
+    const newJokes = this.state.jokes.map(joke => {
+      if(joke.id === id){
+        return {
+          ...joke,
+          show: !joke.show
+        }
+      }else{
+        return joke;
+      }
+    });
+    this.setState({ jokes: newJokes });
   }
 
   render(){
