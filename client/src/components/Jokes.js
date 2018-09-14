@@ -22,12 +22,15 @@ class Jokes extends Component {
       };
 
       axios.get('http://localhost:3300/api/jokes', options)
-            .then(res => this.setState({ isLoggedIn: true,
+            .then(res => {
+              const jokes = res.data.filter((joke, pos, self) => self.findIndex(t => t.id === joke.id) === pos);
+              this.setState({ isLoggedIn: true,
                                           username: localStorage.getItem('user'),
                                           token,
-                                          jokes: res.data
-                                        })
-            )
+                                          jokes
+                                        });
+
+            })
             .catch(err => console.log(err));
     }
   }
