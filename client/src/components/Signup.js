@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AuthForm from './AuthForm';
+import axios from 'axios';
 
 class Signup extends Component{
   state = {
@@ -8,7 +9,9 @@ class Signup extends Component{
   };
 
   componentDidMount(){
-    //check if already logged in user
+    if(localStorage.getItem('user')){
+      this.props.history.push('/');
+    }
   }
 
   handleChange = event => {
@@ -22,7 +25,13 @@ class Signup extends Component{
       username: this.state.username,
       password: this.state.password
     }
-    //handle signup call here
+    axios.post('http://localhost:3300/api/register', user)
+          .then(user => {
+            localStorage.setItem('user', user.username);
+            localStorage.setItem('token', user.token);
+            this.props.history.push('/');
+          })
+          .catch(err => console.log(err));
   }
 
   render(){
