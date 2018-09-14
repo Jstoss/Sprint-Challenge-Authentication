@@ -8,6 +8,8 @@ class Jokes extends Component {
   state = {
     jokes: [],
     isLoggedIn: false,
+    username: null,
+    token: null,
   }
 
   componentDidMount(){
@@ -40,6 +42,7 @@ class Jokes extends Component {
   logout = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
+    this.setState({ isLoggedIn: false, username: null, token: null, jokes: [] })
   }
 
   render(){
