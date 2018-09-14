@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 
-import NavBar from './components/Navbar';
+import NavBar from './components/NavBar';
 import Jokes from './components/Jokes';
 import Login from './components/Login';
 import Signup from './components/Signup';
