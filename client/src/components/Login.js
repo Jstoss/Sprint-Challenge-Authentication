@@ -21,15 +21,15 @@ class Login extends Component{
 
   handleSubmit = event => {
     event.preventDefault();
-    const user = {
+    const userLogin = {
       username: this.state.username,
       password: this.state.password
     }
 
-    axios.post('http://localhost:3300/api/register/login', user)
+    axios.post('http://localhost:3300/api/login', userLogin)
           .then(user => {
-            localStorage.setItem('user', user.username);
-            localStorage.setItem('token', user.token);
+            localStorage.setItem('user', user.data.username);
+            localStorage.setItem('token', user.data.token);
             this.props.history.push('/');
           })
           .catch(err => console.log(err));

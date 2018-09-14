@@ -12,7 +12,7 @@ class Jokes extends Component {
 
   componentDidMount(){
     if(localStorage.getItem('user')){
-      const token = JSON.parse(localStorage.getItem('token'));
+      const token = localStorage.getItem('token');
       const options = {
         headers: {
           Authorization: token
@@ -21,7 +21,7 @@ class Jokes extends Component {
 
       axios.get('http://localhost:3300/api/jokes', options)
             .then(res => this.setState({ isLoggedIn: true,
-                                          username: JSON.parse(localStorage.getItem('user')),
+                                          username: localStorage.getItem('user'),
                                           token,
                                           jokes: res.data
                                         })
