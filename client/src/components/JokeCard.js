@@ -7,8 +7,10 @@ const JokeCard = ({ type, setup, punchline, flip, show }) => {
       onClick={flip}
     >
       <h5>{type}</h5>
-      {!show ? <h3>{setup}</h3> :
-                <p>{punchline}</p>}
+      {!show ?
+        <h3>{setup}</h3> :
+        <p>{punchline}</p>
+      }
     </div>
   );
 }

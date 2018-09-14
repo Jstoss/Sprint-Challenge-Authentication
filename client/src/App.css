@@ -26,6 +26,9 @@
   border: 1px solid black;
   width: 50%;
   margin: 20px auto;
+  height: 125px;
+  width: 520px;
+  border-radius: 5px;
 }
 
 .joke-card:hover{
@@ -33,12 +36,18 @@
   cursor: pointer;
 }
 
-.logout{
+.clickable{
   cursor: pointer;
-  text-decoration: underline;
+  border: 1px dashed black;
+  width: 250px;
+  height: 50px;
+  margin: 5px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.clickable:hover{
+  background: black;
+  color: white;
 }

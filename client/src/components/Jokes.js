@@ -4,6 +4,8 @@ import axios from 'axios';
 
 import JokeCard from './JokeCard';
 
+const URL = 'http://localhost:3300/api/jokes';
+
 class Jokes extends Component {
   state = {
     jokes: [],
@@ -21,7 +23,7 @@ class Jokes extends Component {
         }
       };
 
-      axios.get('http://localhost:3300/api/jokes', options)
+      axios.get(URL, options)
             .then(res => {
               let jokes = res.data.filter((joke, pos, self) => self.findIndex(t => t.id === joke.id) === pos);
               jokes = jokes.map(joke =>  Object.assign({}, joke, {show: false}) );
@@ -64,13 +66,35 @@ class Jokes extends Component {
     this.setState({ jokes: newJokes });
   }
 
+  reload = () => {
+    const options = {
+      headers: {
+        Authorization: this.state.token
+      }
+    }
+    axios.get(URL, options)
+      .then(res => {
+        let jokes = res.data.filter((joke, pos, self) => self.findIndex(t => t.id === joke.id) === pos);
+        jokes = jokes.map(joke =>  Object.assign({}, joke, {show: false}) );
+        this.setState({ jokes });
+
+      })
+      .catch(err => console.log(err));
+  }
+
   render(){
     return(
       <React.Fragment>
-        {this.state.isLoggedIn && <h1>Hello {this.state.username}</h1>}
-        {this.state.isLoggedIn && <div className="logout" onClick={this.logout}>Log Out</div>}
-        {this.state.isLoggedIn ?  this.showJokes() :
-                                  <h1>Please <Link to="/login">Login</Link> or <Link to="signup">Signup</Link> to View Jokes</h1>
+        {this.state.isLoggedIn && (
+          <React.Fragment>
+            <h1>Hello {this.state.username}</h1>
+            <div className="clickable" onClick={this.reload}>More Jokes</div>
+            <div className="clickable" onClick={this.logout}>Log Out</div>
+            {this.showJokes()}
+          </React.Fragment>
+        )}
+        {!this.state.isLoggedIn &&
+           <h1>Please <Link to="/login">Login</Link> or <Link to="signup">Signup</Link> to View Jokes</h1>
         }
       </React.Fragment>
     )
