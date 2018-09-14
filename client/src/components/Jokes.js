@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+import JokeCard from './JokeCard';
+
 class Jokes extends Component {
-  this.state = {
+  state = {
     jokes: [],
     isLoggedIn: false,
   }

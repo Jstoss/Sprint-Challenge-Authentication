@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AuthForm from './AuthForm';
 import axios from 'axios';
 
-class Signup extends Component{
+class Login extends Component{
   state = {
     username: '',
     password: '',

@@ -19,6 +19,8 @@ const AuthForm = ({ submit, change, username, password }) => {
           onChange={change}
         />
       </div>
+      <button type="submit">Submit</button>
+    </form>
   );
 }
 
